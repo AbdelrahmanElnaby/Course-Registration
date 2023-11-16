@@ -62,6 +62,7 @@ export const deleteItem = async (req:Request,res:Response):Promise<void> =>{
         responseHandle(error,res);
     }
 }
+
 export const addCourseClass = async (req:Request,res:Response):Promise<void> =>{
     try{
         const pId  = Number(req.params.id);
@@ -70,7 +71,7 @@ export const addCourseClass = async (req:Request,res:Response):Promise<void> =>{
         responseHandle(result,res);
     }
     catch(err){
-        const error = errorHandle(err, __filename, "show");
+        const error = errorHandle(err, __filename, "addCourseClass");
         responseHandle(error,res);
     }
 }
@@ -84,7 +85,7 @@ export const addCourseClassTeacher = async (req:Request,res:Response):Promise<vo
         responseHandle(result,res);
     }
     catch(err){
-        const error = errorHandle(err, __filename, "show");
+        const error = errorHandle(err, __filename, "addCourseClassTeacher");
         responseHandle(error,res);
     }
 }
@@ -98,7 +99,7 @@ export const addCourseClassStudent = async (req:Request,res:Response):Promise<vo
         responseHandle(result,res);
     }
     catch(err){
-        const error = errorHandle(err, __filename, "show");
+        const error = errorHandle(err, __filename, "addCourseClassStudent");
         responseHandle(error,res);
     }
 }
