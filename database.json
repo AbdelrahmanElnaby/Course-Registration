@@ -1,0 +1,10 @@
+{
+    "dev":{
+        "driver":{"ENV":"DRIVER"},
+        "host":{"ENV":"HOST"},
+        "port":{"ENV":"PORT"},
+        "database":{"ENV":"DATABASE"},
+        "user":{"ENV":"USER"},
+        "password":{"ENV":"PASSWORD"}
+    }
+}
