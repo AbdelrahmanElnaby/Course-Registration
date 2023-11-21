@@ -19,3 +19,20 @@ export const responseHandle = (result:Object|null,res:Response,message?:string):
     }
 }
 
+export const checkNumber = (...numArr:unknown[]):boolean =>{
+    for(const item of numArr){
+        if(typeof item !== 'number' || isNaN(item)) return false;
+    }
+    return true;
+}
+
+export const checkChar = (...stringArr:string[]):boolean =>{
+    for(let item of stringArr){
+        item = item.toLowerCase();
+        if(item.length !== 1 || item.charCodeAt(0) < 97 || item.charCodeAt(0) > 122){
+            return false;
+        } 
+    }
+    return true;
+}
+
