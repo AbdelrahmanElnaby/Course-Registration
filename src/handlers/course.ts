@@ -232,7 +232,7 @@ export const getCourseClassStudents= async (req:Request,res:Response):Promise<vo
     }
 }
 
-export const getSpecificCourseClassStudents= async (req:Request,res:Response):Promise<void> =>{
+export const getSpecificCourseClassStudent= async (req:Request,res:Response):Promise<void> =>{
     try{
         const courseId  = Number(req.params.courseId);
         const className = req.params.className;
@@ -241,7 +241,7 @@ export const getSpecificCourseClassStudents= async (req:Request,res:Response):Pr
         responseHandle(result,res);
     }
     catch(err){
-        const error = errorHandle(err, __filename, "getSpecificCourseClassStudents");
+        const error = errorHandle(err, __filename, "getSpecificCourseClassStudent");
         responseHandle(error,res);
     }
 }
@@ -261,7 +261,7 @@ export const editCourseClassStudent = async (req:Request,res:Response):Promise<v
     }
 }
 
-export const deleteCourseClassStudents= async (req:Request,res:Response):Promise<void> =>{
+export const deleteCourseClassStudent= async (req:Request,res:Response):Promise<void> =>{
     try{
         const courseId  = Number(req.params.courseId);
         const className = req.params.className;
@@ -270,7 +270,7 @@ export const deleteCourseClassStudents= async (req:Request,res:Response):Promise
         responseHandle(result,res);
     }
     catch(err){
-        const error = errorHandle(err, __filename, "deleteCourseClassStudents");
+        const error = errorHandle(err, __filename, "deleteCourseClassStudent");
         responseHandle(error,res);
     }
 }
