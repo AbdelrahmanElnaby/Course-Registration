@@ -7,7 +7,7 @@
     "build": "npx tsc || nodemon ./prod/serve.js",
     "dev": "tsc-watch ./src/.",
     "dbCreate": "db-migrate --env dev up",
-    "dbDrop": "dp-migrate --env dev reset"
+    "dbDrop": "db-migrate --env dev reset"
   },
   "author": "abdelrahman",
   "license": "ISC",
