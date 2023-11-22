@@ -21,7 +21,7 @@ routes.post("/:courseId/class",addCourseClass);
 routes.get("/:courseId/class",getCourseClasses);
 routes.get("/:courseId/class/:className",getSpecificCourseClass);
 routes.put("/:courseId/class/:className",editCourseClass);
-routes.delete("/:courseId/class/:className",deleteItem);
+routes.delete("/:courseId/class/:className",deleteCourseClass);
 //#endregion
 
 //#region courseClassTeacher routes

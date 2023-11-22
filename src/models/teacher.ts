@@ -74,7 +74,7 @@ class Cls_Teacher implements Teacher{
     async delete(id:number):Promise<T_Teacher|null>{
         try{
             const connection = await client.connect();
-            const sql = "Delete FROM teachers WHERE id = $1";
+            const sql = "Delete FROM teachers WHERE id = $1 RETURNING *";
             const variables = [id];
             const quey = await connection.query(sql,variables);
             connection.release();

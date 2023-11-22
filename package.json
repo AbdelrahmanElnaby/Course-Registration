@@ -5,9 +5,9 @@
   "main": "server.ts",
   "scripts": {
     "build": "npx tsc || nodemon ./prod/serve.js",
-    "dev": "tsc-watch ./src/.",
-    "dbCreate": "db-migrate --env dev up",
-    "dbDrop": "db-migrate --env dev reset"
+    "dev": "nodemon ./src/server.ts",
+    "dbUp": "db-migrate --env dev up",
+    "dbDown": "db-migrate --env dev reset"
   },
   "author": "abdelrahman",
   "license": "ISC",
@@ -20,7 +20,6 @@
     "db-migrate": "^0.11.14",
     "db-migrate-pg": "^1.5.2",
     "ts-node": "^10.9.1",
-    "tsc-watch": "^6.0.4",
     "typescript": "^5.2.2"
   },
   "dependencies": {
