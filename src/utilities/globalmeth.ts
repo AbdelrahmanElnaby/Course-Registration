@@ -1,4 +1,9 @@
 import { Response } from "express";
+import  bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
+import dotenv from "dotenv"
+import { T_Student, T_Teacher } from "./types";
+dotenv.config();
 
 export const errorHandle = (err:unknown,owner:string,method?:string):Error=>{
     const error = err instanceof Error ? err : new Error('no error reference'); 
@@ -33,6 +38,30 @@ export const checkChar = (...stringArr:string[]):boolean =>{
         if(item.length !== 1 || item.charCodeAt(0) < 97 || item.charCodeAt(0) > 122){
             return false;
         } 
+    }
+    return true;
+}
+
+export const encrypt = (password:string):string=>{
+    let {PEPPER,SALTROUND}  = process.env;
+    SALTROUND = checkNumber(SALTROUND) ? SALTROUND : "10" ;
+    const hashedPassword = bcrypt.hashSync(password+PEPPER ,Number(SALTROUND));
+    return hashedPassword;
+}
+
+export const createToten = (payload:T_Student|T_Teacher):string =>{
+    const {SECRET} = process.env;
+    const signature = jwt.sign(payload,String(SECRET));
+    return signature;
+}
+
+export const validateToken = (token:string):boolean =>{
+    const {SECRET} = process.env;
+    try{
+        jwt.verify(token,String(SECRET));
+    }
+    catch(e){
+        return false;
     }
     return true;
 }
