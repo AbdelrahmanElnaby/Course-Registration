@@ -92,7 +92,7 @@ export class cls_Course implements Course{
         const varialbes = [id]
         const query = await connection.query(sql,varialbes);
         connection.release();
-        return query.rows.length ? query.rows[0]:null ;
+        return query.rowCount ? query.rows[0]:null ;
     }
     catch(err){
         throw errorHandle(err,__filename,"show");
@@ -146,7 +146,7 @@ export class cls_Course implements Course{
    async getCourseClasses(courseId: number):Promise<T_CourseClass[]>{
     try{
         const connection = await client.connect();
-        const sql = "SELECT course_id, short_name, max_students FROM course_classes";
+        const sql = "SELECT course_id, short_name, max_students FROM course_classes WHERE course_id = $1";
         const variables = [courseId];
         const query = await connection.query(sql,variables);
         connection.release();
@@ -188,7 +188,7 @@ export class cls_Course implements Course{
    async deleteCourseClass(courseId: number,class_name:string):Promise<T_CourseClass|null>{
     try{
         const connection = await client.connect();
-        const sql = "DELETE FROM course_students WHERE course_id = $1 AND short_name = $2 RETURNING *";
+        const sql = "DELETE FROM course_classes WHERE course_id = $1 AND short_name = $2 RETURNING *";
         const variables = [courseId,class_name];
         const query = await connection.query(sql,variables);
         connection.release();
