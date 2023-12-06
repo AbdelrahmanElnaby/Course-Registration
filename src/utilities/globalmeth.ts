@@ -49,20 +49,37 @@ export const encrypt = (password:string):string=>{
     return hashedPassword;
 }
 
-export const createToten = (payload:T_Student|T_Teacher):string =>{
+export const createToten = (user:T_Student|T_Teacher):string =>{
+    const {id,fullName} = user; // can be customized to separate the payload of student or teacher
+    const payload = {id,fullName};
     const {SECRET} = process.env;
     const signature = jwt.sign(payload,String(SECRET));
     return signature;
 }
 
-export const validateToken = (token:string):boolean =>{
+export const validateToken = (token:string):any|null =>{
     const {SECRET} = process.env;
     try{
-        jwt.verify(token,String(SECRET));
+        const payload = jwt.verify(token,String(SECRET));
+        return  payload;
     }
     catch(e){
-        return false;
+        return null;
     }
-    return true;
 }
 
+export const configureToken = (token:string,tokenOperation:number):string =>{
+
+    return tokenOperation? `Bearer ${token}` : token.split(" ")[1] ;
+}
+
+export const sendToken = (user:T_Student|T_Teacher):string =>{
+
+    return configureToken(createToten(user),1);
+}
+
+export const receiveToken = (token:string):T_Student|T_Teacher|null =>{
+
+    const tokenConfigure = configureToken(token,0);
+    return validateToken(tokenConfigure) ;
+}

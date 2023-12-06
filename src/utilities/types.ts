@@ -13,7 +13,7 @@ export interface T_CourseClass{
 }  
 
 export interface T_Teacher{
-        teacherId?:number;
+        id?:number;
         fullName?:string;
         email?:string;
         birthDt?:string;
@@ -22,7 +22,7 @@ export interface T_Teacher{
     }
 
 export interface T_Student{
-        studentId?:number;
+        id?:number;
         fullName?:string;
         email?:string;
         birthDt?:string;
