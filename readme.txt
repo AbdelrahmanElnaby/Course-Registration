@@ -1,4 +1,4 @@
-to use this api you should follow these steps:
+To use this api you should follow these steps:
 
 first: run the command line -> npm install
 
@@ -17,7 +17,7 @@ SECRET=afrefer
 
 third: you should create your database 
 then
-fourth: run the comman -> npm dbUp
-fifth: run the comman -> npm dbDown
-sixth: run the comman -> npm run dev
+fourth: run the command -> npm run dbUp
+fifth: run the command -> npm run dbDown
+sixth: to run the server -> npm run dev
 
