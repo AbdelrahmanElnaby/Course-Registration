@@ -5,6 +5,8 @@ import {index, show, create, update, deleteItem,
     getSpecificCourseClassTeacher, editCourseClassTeacher, deleteCourseClassTeacher,
     addCourseClassStudent, getCourseClassStudents, getSpecificCourseClassStudent, 
     editCourseClassStudent, deleteCourseClassStudent} from "../../handlers/course"
+import authorization from "../../middlewares/authorization";
+import cookieParser from "cookie-parser";
 
 const routes = Router();
 
@@ -25,19 +27,19 @@ routes.delete("/:courseId/class/:className",deleteCourseClass);
 //#endregion
 
 //#region courseClassTeacher routes
-routes.post("/:courseId/class/:className/teacher",addCourseClassTeacher);
+routes.post("/:courseId/class/:className/teacher", cookieParser(), authorization, addCourseClassTeacher);
 routes.get("/:courseId/class/:className/teacher",getCourseClassTeachers);
-routes.get("/:courseId/classes/:className/teacher/:teacherId",getSpecificCourseClassTeacher);
-routes.put("/:courseId/classes/:className/teacher/:teacherId",editCourseClassTeacher);
-routes.delete("/:courseId/classes/:className/teacher/:teacherId",deleteCourseClassTeacher);
+routes.get("/:courseId/classes/:className/teacher/:teacherId", cookieParser(), authorization,getSpecificCourseClassTeacher);
+routes.put("/:courseId/classes/:className/teacher/:teacherId", cookieParser(),authorization, editCourseClassTeacher);
+routes.delete("/:courseId/classes/:className/teacher/:teacherId", cookieParser(),authorization, deleteCourseClassTeacher);
 //#endregion
 
 //#region courseClassStudent routes
-routes.post("/:courseId/class/:className/student",addCourseClassStudent);
+routes.post("/:courseId/class/:className/student", cookieParser(),authorization, addCourseClassStudent);
 routes.get("/:courseId/class/:className/student",getCourseClassStudents);
-routes.get("/:courseId/classes/:className/student/:studentId",getSpecificCourseClassStudent);
-routes.put("/:courseId/classes/:className/student/:studentId",editCourseClassStudent);
-routes.delete("/:courseId/classes/:className/student/:studentId",deleteCourseClassStudent);
+routes.get("/:courseId/classes/:className/student/:studentId", cookieParser(), authorization,getSpecificCourseClassStudent);
+routes.put("/:courseId/classes/:className/student/:studentId", cookieParser(), authorization, editCourseClassStudent);
+routes.delete("/:courseId/classes/:className/student/:studentId", cookieParser(),authorization, deleteCourseClassStudent);
 //#endregion
 
 export default routes;

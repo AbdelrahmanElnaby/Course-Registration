@@ -1,20 +1,24 @@
 import {Router, Request, Response} from "express"
 import teacher from "./models/teacher"
 import student from "./models/student";
-import { encrypt, sendToken, responseHandle, errorHandle} from "../utilities/globalmeth"
+import { comparePassword, sendToken, responseHandle, errorHandle} from "../utilities/globalmeth"
 
 const routes = Router();
 
 const teacherHandler = async (req:Request,res:Response):Promise<void> =>{
     try{
-    req.body.password = encrypt(String(req.body.password));
     const teacherInfo = await teacher.login(req.body);
     if(teacherInfo){
-        const token = sendToken(teacherInfo);
-        //res.cookie("authorization",token,{httpOnly:true}).redirect("courseRegistration");
-        res.cookie("authorization",token,{httpOnly:true}).json({url:"courseRegistration"});
+        if(comparePassword(req.body.password,String(teacherInfo.password))){
+            const  {id,fullName} = teacherInfo;
+            const token = sendToken({id,fullName});
+            res.cookie("authorization",token,{httpOnly:true}).redirect("http://localhost:3003/courseRegistration");
+            //res.cookie("authorization",token,{httpOnly:true}).json({url:"courseRegistration"});
+            return;
+        }
     }
-    responseHandle(teacherInfo,res,"Failed Login");
+    responseHandle(null,res,"Failed Login");
+    return;
     }
     catch(err){
         const error = errorHandle(err, __filename, "teacherLogin");
@@ -25,14 +29,19 @@ const teacherHandler = async (req:Request,res:Response):Promise<void> =>{
 
 const studentrHandler = async (req:Request,res:Response):Promise<void> =>{
     try{
-    req.body.password = encrypt(String(req.body.password));
     const studentInfo = await student.login(req.body);
     if(studentInfo){
-        const token = sendToken(studentInfo);
-        //res.cookie("authorization",token,{httpOnly:true}).redirect("/courseRegistration");
-        res.cookie("authorization",token,{httpOnly:true}).json({url:"courseRegistration"});
+        if(comparePassword(req.body.password,String(studentInfo.password))){
+            const  {id,fullName} = studentInfo;
+            const token = sendToken({id,fullName});
+            res.cookie("authorization",token,{httpOnly:true}).redirect("http://localhost:3003/courseRegistration");
+           // res.cookie("authorization",token,{httpOnly:true}).json({url:"courseRegistration"});
+            return;
+        }
+        
     }
-    responseHandle(studentInfo,res,"Failed Login");
+    responseHandle(null,res,"Failed Login");
+    return;
     }
     catch(err){
         const error = errorHandle(err, __filename, "studentLogin");

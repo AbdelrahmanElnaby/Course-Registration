@@ -15,18 +15,18 @@ export interface T_CourseClass{
 export interface T_Teacher{
         id?:number;
         fullName?:string;
+        password?:string;
         email?:string;
         birthDt?:string;
-        password?:string;
         maxCourses?:number;
     }
 
 export interface T_Student{
         id?:number;
         fullName?:string;
+        password?:string;
         email?:string;
         birthDt?:string;
-        password?:string;
         maxCourses?:number;
     }
 
@@ -43,4 +43,14 @@ export interface T_CourseClassTeacher{
         T_eacherId?:number;
         courseType?:string;
         courseDt?:string
+    }
+
+export interface T_TeacherPayload{
+    id:number;
+    fullName:string;
+    }
+
+export interface T_StudentPayload{
+    id?:number;
+    fullName?:string;
     }

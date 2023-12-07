@@ -1,7 +1,8 @@
 import teacher from "../models/teacher"
 import { Request, Response } from "express"
-import {responseHandle, errorHandle} from "../utilities/globalmeth"
+import {responseHandle, errorHandle, encrypt} from "../utilities/globalmeth"
 import {T_Teacher} from "../utilities/types"
+
 
 export const index = async (_req:Request,res:Response):Promise<void> =>{
     try{
@@ -29,6 +30,8 @@ export const show = async (req:Request,res:Response):Promise<void> =>{
 export const create = async (req:Request,res:Response):Promise<void> =>{
     try{
         const body:T_Teacher = req.body;
+        body.password = encrypt(String(body.password));
+        console.log(body.password);
         const result = await teacher.create(body);
         responseHandle(result,res);
     }
@@ -62,3 +65,5 @@ export const deleteItem = async (req:Request,res:Response):Promise<void> =>{
         responseHandle(error,res);
     }
 }
+
+

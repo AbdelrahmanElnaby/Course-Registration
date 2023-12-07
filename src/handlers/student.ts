@@ -1,6 +1,6 @@
 import student from "../models/student"
 import { Request, Response } from "express"
-import {responseHandle, errorHandle} from "../utilities/globalmeth"
+import {responseHandle, errorHandle, encrypt} from "../utilities/globalmeth"
 import {T_Student} from "../utilities/types"
 
 export const index = async (_req:Request,res:Response):Promise<void> =>{
@@ -29,6 +29,7 @@ export const show = async (req:Request,res:Response):Promise<void> =>{
 export const create = async (req:Request,res:Response):Promise<void> =>{
     try{
         const body:T_Student = req.body;
+        body.password = encrypt(String(body.password));
         const result = await student.create(body);
         responseHandle(result,res);
     }

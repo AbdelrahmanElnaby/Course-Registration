@@ -2,7 +2,7 @@ import { Response } from "express";
 import  bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
-import { T_Student, T_Teacher } from "./types";
+import { T_Student, T_StudentPayload, T_Teacher, T_TeacherPayload } from "./types";
 dotenv.config();
 
 export const errorHandle = (err:unknown,owner:string,method?:string):Error=>{
@@ -44,9 +44,16 @@ export const checkChar = (...stringArr:string[]):boolean =>{
 
 export const encrypt = (password:string):string=>{
     let {PEPPER,SALTROUND}  = process.env;
+    console.log(PEPPER,SALTROUND);
     SALTROUND = checkNumber(SALTROUND) ? SALTROUND : "10" ;
     const hashedPassword = bcrypt.hashSync(password+PEPPER ,Number(SALTROUND));
     return hashedPassword;
+}
+
+export const comparePassword = (password:string,hashPassword:string):boolean =>{
+    const {PEPPER}  = process.env;
+    console.log(PEPPER);
+    return bcrypt.compareSync(password+PEPPER,hashPassword);
 }
 
 export const createToten = (user:T_Student|T_Teacher):string =>{
@@ -73,7 +80,7 @@ export const configureToken = (token:string,tokenOperation:number):string =>{
     return tokenOperation? `Bearer ${token}` : token.split(" ")[1] ;
 }
 
-export const sendToken = (user:T_Student|T_Teacher):string =>{
+export const sendToken = (user:T_StudentPayload|T_TeacherPayload):string =>{
 
     return configureToken(createToten(user),1);
 }
